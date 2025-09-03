@@ -11,9 +11,9 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>core</module>
     <module>common</module>
     <module>auth</module>
     <module>resource</module>
+    <module>core</module>
   </modules>
 </project>

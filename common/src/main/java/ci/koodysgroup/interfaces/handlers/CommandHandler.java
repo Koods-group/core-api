@@ -4,6 +4,6 @@ import ci.koodysgroup.interfaces.command.Command;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface CommandHandler<C extends Command<?>> {
-    void handler(C command);
+public interface CommandHandler<C extends Command<?>, R> {
+    R handler(C command);
 }

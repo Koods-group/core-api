@@ -2,11 +2,14 @@ package ci.koodysgroup.utils.response;
 
 import ci.koodysgroup.interfaces.IApiResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
 
 
+@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> implements IApiResponse {
 
+    // Getters et Setters
     private T content;
     private String message;
     private boolean success;
@@ -30,41 +33,20 @@ public class ApiResponse<T> implements IApiResponse {
         this.errors = errors;
     }
 
-    // Getters et Setters
-    public T getContent() {
-        return content;
-    }
-
     public void setContent(T content) {
         this.content = content;
-    }
-
-    public String getMessage() {
-        return message;
     }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
     public void setSuccess(boolean success) {
         this.success = success;
     }
 
-    public Object getErrors() {
-        return errors;
-    }
-
     public void setErrors(Object errors) {
         this.errors = errors;
-    }
-
-    public String getCode() {
-        return code;
     }
 
     public void setCode(String code) {

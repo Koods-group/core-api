@@ -4,6 +4,8 @@ package ci.koodysgroup.domains.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 @Setter
@@ -14,7 +16,7 @@ public class User extends AbstractDateTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @Column(name = "civility")
     private String civility;
@@ -28,9 +30,20 @@ public class User extends AbstractDateTime {
     @Column(name = "number")
     private String number;
 
-    @Column(name = "avatar")
+    @Column(name = "avatar" , nullable = true)
     private String avatar;
 
-    @Column(name = "birthday")
+    @Column(name = "birthday", nullable = true)
     private String birthday;
+
+    @OneToOne(mappedBy = "user" , cascade = CascadeType.ALL)
+    private Access access;
+
+    public User(String civility, String name, String surname, String number)
+    {
+        this.civility = civility;
+        this.name = name;
+        this.surname = surname;
+        this.number = number;
+    }
 }

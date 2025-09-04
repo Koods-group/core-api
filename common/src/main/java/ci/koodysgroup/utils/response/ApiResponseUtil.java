@@ -32,12 +32,24 @@ public class ApiResponseUtil {
         return error("The requested resource is not available, Please try again", "not_found");
     }
 
+    public static <T> ApiResponse<T> notFound(String message) {
+        return error(message, "not_found");
+    }
+
+    public static <T> ApiResponse<T> conflict(String message) {
+        return error(message, "conflict");
+    }
+
     public static <T> ApiResponse<T> badRequest(String message, Object errors) {
         return error(message, "bad_request", errors);
     }
 
-    public static <T> ApiResponse<T> unauthorized() {
-        return error("Unauthorized access", "unauthorized");
+    public static <T> ApiResponse<T> badRequest(String message) {
+        return error(message, "bad_request");
+    }
+
+    public static <T> ApiResponse<T> unauthorized(String message) {
+        return error(message, "unauthorized");
     }
 
     public static <T> ApiResponse<T> internalError() {

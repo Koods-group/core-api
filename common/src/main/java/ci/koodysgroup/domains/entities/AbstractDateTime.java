@@ -9,7 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,9 +19,9 @@ public class AbstractDateTime {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Date created_at;
+    private LocalDateTime created_at;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = true)
-    private Date updated_at;
+    private LocalDateTime updated_at;
 }

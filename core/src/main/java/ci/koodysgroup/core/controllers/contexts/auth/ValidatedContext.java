@@ -1,4 +1,4 @@
-package ci.koodysgroup.core.contexts.auth;
+package ci.koodysgroup.core.controllers.contexts.auth;
 
 import lombok.Getter;
 import lombok.Setter;

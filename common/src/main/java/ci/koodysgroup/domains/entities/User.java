@@ -27,7 +27,7 @@ public class User extends AbstractDateTime {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "number")
+    @Column(name = "number" , unique = true)
     private String number;
 
     @Column(name = "avatar" , nullable = true)

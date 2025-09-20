@@ -13,9 +13,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class SignUpCommand implements Command<String> {
 
-    private UUID otp_id;
+    private UUID otpId;
+    private UUID countryId;
     private String civility;
     private String name;
     private String surname;
     private String login;
+    private String password;
 }

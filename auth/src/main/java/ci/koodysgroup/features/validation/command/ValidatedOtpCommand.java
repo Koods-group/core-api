@@ -1,4 +1,4 @@
-package ci.koodysgroup.features.signin.command;
+package ci.koodysgroup.features.validation.command;
 
 import ci.koodysgroup.interfaces.command.Command;
 import lombok.AllArgsConstructor;

@@ -7,6 +7,7 @@ COPY pom.xml .
 COPY common/pom.xml ./common/
 COPY auth/pom.xml ./auth/
 COPY resource/pom.xml ./resource/
+COPY customer/pom.xml ./customer/
 COPY core/pom.xml ./core/
 
 # Download dependencies

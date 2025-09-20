@@ -44,7 +44,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
             if(access.isEmpty())
             {
-                String code = GlobalFunction.generatedOtpCode(5);
+                String code = "12345"; //  GlobalFunction.generatedOtpCode(5);
 
                 Optional<Otp> otp = this.otp.findByGeneratedBy(command.getGenerated_by());
 

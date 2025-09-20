@@ -20,18 +20,27 @@ public class Country extends AbstractDateTime {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id ;
 
-    @Column(name = "libelle")
+    @Column(name = "libelle" , unique = true)
     private String libelle;
 
-    @Column(name = "alias")
+    @Column(name = "alias" , unique = true)
     private String alias;
 
-    @Column(name = "flag")
+    @Column(name = "flag", unique = true)
     private String flag;
 
     @Column(name = "number_length")
-    private int number_length;
+    private int numberLength;
 
-    @Column(name = "country_code")
-    private String country_code ;
+    @Column(name = "country_code" , unique = true)
+    private String countryCode ;
+
+    public Country(String libelle , String alias, String flag, String countryCode, int numberLength)
+    {
+        this.libelle = libelle;
+        this.alias = alias;
+        this.flag = flag;
+        this.countryCode = countryCode;
+        this.numberLength = numberLength;
+    }
 }

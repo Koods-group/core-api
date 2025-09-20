@@ -1,8 +1,8 @@
-package ci.koodysgroup.features.signin.handler;
+package ci.koodysgroup.features.validation.handler;
 
 import ci.koodysgroup.domains.dtms.OtpDtm;
 import ci.koodysgroup.domains.entities.Otp;
-import ci.koodysgroup.features.signin.command.ValidatedOtpCommand;
+import ci.koodysgroup.features.validation.command.ValidatedOtpCommand;
 import ci.koodysgroup.interfaces.handlers.CommandHandler;
 import ci.koodysgroup.repositories.OtpRepository;
 import ci.koodysgroup.utils.functions.GlobalFunction;
@@ -25,27 +25,35 @@ public class ValidatedOtpHandler implements CommandHandler<ValidatedOtpCommand ,
         try{
 
             Otp otp = this.repository.findById(command.getOtp_id())
-                    .orElseThrow(() -> new NoSuchElementException("Sorry! You have no pending validations"));
+                    .orElseThrow(() -> new NoSuchElementException("Sorry! You have no pending validations ."));
 
             boolean time_elapsed = GlobalFunction.elapsedTime(otp.getUpdated_at() , 45);
 
             if(time_elapsed)
             {
-                throw new RuntimeException("Validation time limit has expired, Please try again with a new code.");
+                throw new RuntimeException("Validation time limit has expired, Please try again with a new code .");
             }
 
             if(Objects.equals(otp.getCode(), command.getCode()) && Objects.equals(otp.getGeneratedBy() , command.getGenerated_by()))
             {
 
-                otp.setConsumed(true);
-                this.repository.save(otp);
+                if(!otp.isConsumed())
+                {
+                    otp.setConsumed(true);
+                    this.repository.save(otp);
 
-                return CommandResponse.success(OtpDtm.fromCodeDtm(otp));
+                    return CommandResponse.success(OtpDtm.fromCodeDtm(otp));
+                }
+
+                else
+                {
+                    return CommandResponse.error("Sorry! The code you entered has already been used. Please try again .","bad_request");
+                }
             }
 
             else
             {
-                return CommandResponse.error("The code entered is invalid, please try again","bad_request");
+                return CommandResponse.error("The code entered is invalid, please try again .","bad_request");
             }
 
 

@@ -15,5 +15,6 @@
     <module>auth</module>
     <module>resource</module>
     <module>core</module>
+    <module>customer</module>
   </modules>
 </project>

@@ -1,7 +1,6 @@
 package ci.koodysgroup.features.country.handlers;
 
 import ci.koodysgroup.domains.dtms.CountryDtm;
-import ci.koodysgroup.domains.entities.Country;
 import ci.koodysgroup.features.country.queries.ListCountryQuery;
 import ci.koodysgroup.interfaces.handlers.QueryHandler;
 import ci.koodysgroup.repositories.CountryRepository;

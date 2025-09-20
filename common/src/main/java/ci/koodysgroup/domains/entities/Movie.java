@@ -1,0 +1,33 @@
+package ci.koodysgroup.domains.entities;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.sql.Time;
+import java.util.UUID;
+
+@Entity
+@Table(name = "movies")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Movie extends AbstractDateTime {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @OneToOne
+    @JoinColumn(name = "content_id")
+    private Content content;
+
+    @Column(name = "duration")
+    private Time duration;
+
+    @Column(name = "director")
+    private String director;
+}

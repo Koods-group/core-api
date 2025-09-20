@@ -39,8 +39,8 @@ public class CountryDtm {
                 country.getLibelle(),
                 country.getAlias(),
                 country.getFlag(),
-                country.getNumber_length(),
-                country.getCountry_code()
+                country.getNumberLength(),
+                country.getCountryCode()
         );
     }
 }

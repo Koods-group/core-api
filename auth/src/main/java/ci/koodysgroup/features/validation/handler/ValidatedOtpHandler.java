@@ -24,17 +24,17 @@ public class ValidatedOtpHandler implements CommandHandler<ValidatedOtpCommand ,
     public CommandResponse<OtpDtm> handler(ValidatedOtpCommand command) {
         try{
 
-            Otp otp = this.repository.findById(command.getOtp_id())
+            Otp otp = this.repository.findById(command.getOtpId())
                     .orElseThrow(() -> new NoSuchElementException("Sorry! You have no pending validations ."));
 
-            boolean time_elapsed = GlobalFunction.elapsedTime(otp.getUpdated_at() , 45);
+            boolean time_elapsed = GlobalFunction.elapsedTime(otp.getUpdatedAt() , 45);
 
             if(time_elapsed)
             {
                 throw new RuntimeException("Validation time limit has expired, Please try again with a new code .");
             }
 
-            if(Objects.equals(otp.getCode(), command.getCode()) && Objects.equals(otp.getGeneratedBy() , command.getGenerated_by()))
+            if(Objects.equals(otp.getCode(), command.getCode()) && Objects.equals(otp.getGeneratedBy() , command.getGeneratedBy()))
             {
 
                 if(!otp.isConsumed())

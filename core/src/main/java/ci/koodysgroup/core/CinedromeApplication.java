@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {"ci.koodysgroup.domains.entities"})
 @EnableJpaRepositories(basePackages = "ci.koodysgroup.repositories")
 @SpringBootApplication(scanBasePackages = "ci.koodysgroup")
-public class CinedroneApplication {
+public class CinedromeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CinedroneApplication.class, args);
+		SpringApplication.run(CinedromeApplication.class, args);
 	}
 
 }

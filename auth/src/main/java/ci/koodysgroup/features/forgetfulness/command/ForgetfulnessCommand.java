@@ -1,4 +1,4 @@
-package ci.koodysgroup.features.initiated.command;
+package ci.koodysgroup.features.forgetfulness.command;
 
 import ci.koodysgroup.interfaces.command.Command;
 import lombok.AllArgsConstructor;
@@ -7,13 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class InitiatedCommand implements Command<String> {
-
+@NoArgsConstructor
+public class ForgetfulnessCommand implements Command<String> {
     private UUID countryId;
-    private String generatedBy;
-
+    private String login;
 }

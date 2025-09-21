@@ -1,15 +1,14 @@
 package ci.koodysgroup.core.controllers;
 
 
-import ci.koodysgroup.core.controllers.contexts.auth.InitiatedContext;
-import ci.koodysgroup.core.controllers.contexts.auth.SignInContext;
-import ci.koodysgroup.core.controllers.contexts.auth.SignUpContext;
-import ci.koodysgroup.core.controllers.contexts.auth.ValidatedContext;
+import ci.koodysgroup.core.controllers.contexts.auth.*;
 import ci.koodysgroup.domains.dtms.AccessDtm;
 import ci.koodysgroup.domains.dtms.OtpDtm;
 import ci.koodysgroup.domains.dtms.UserDtm;
 import ci.koodysgroup.domains.dtms.UserOrOtpDtm;
+import ci.koodysgroup.features.forgetfulness.command.ForgetfulnessCommand;
 import ci.koodysgroup.features.initiated.command.InitiatedCommand;
+import ci.koodysgroup.features.resetpassword.command.ResetPasswordCommand;
 import ci.koodysgroup.features.signin.command.SignInCommand;
 import ci.koodysgroup.features.validation.command.ValidatedOtpCommand;
 import ci.koodysgroup.features.signup.command.SignUpCommand;
@@ -31,6 +30,47 @@ public class AuthController {
     public AuthController(CommandBus bus)
     {
         this.bus = bus;
+    }
+
+
+    @PutMapping("reset-password")
+    public ResponseEntity<ApiResponse<UserDtm>> resetPassword(@RequestBody ResetPasswordContext context)
+    {
+        ResetPasswordCommand command = new ResetPasswordCommand(context.getPassorwd(),context.getCountryId(),context.getLogin(),context.getOtpId());
+
+        CommandResponse<UserDtm> response = this.bus.send(command);
+
+        if(!response.isSuccess())
+        {
+            return switch (response.getCode()) {
+                case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
+                default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
+            };
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),response.getMessage(),"success"));
+
+    }
+
+
+    @PostMapping("forgotten-password")
+    public ResponseEntity<ApiResponse<OtpDtm>> forgottenPassword(@RequestBody ForgetfulnessContext context)
+    {
+        ForgetfulnessCommand command = new ForgetfulnessCommand(context.getCountryId() , context.getLogin());
+
+        CommandResponse<OtpDtm> response  = this.bus.send(command);
+
+        if(!response.isSuccess())
+        {
+            return switch (response.getCode()) {
+                case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
+                default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
+            };
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),"A validation code has been sent to you by text message to continue the process","success"));
     }
 
 
@@ -110,7 +150,7 @@ public class AuthController {
             };
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getContent() , "Code validated, your account is now activated", "success"));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getContent() , "Code validated, you may continue the process .", "success"));
     }
 
 }

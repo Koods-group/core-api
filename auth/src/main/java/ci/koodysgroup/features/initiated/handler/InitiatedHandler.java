@@ -37,24 +37,24 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
         try
         {
-            Country country = this.country.findById(command.getCountry_id())
-                    .orElseThrow(() -> new NoSuchElementException("The selected country does not exist, Please try again"));
+            Country country = this.country.findById(command.getCountryId())
+                    .orElseThrow(() -> new NoSuchElementException("The selected country does not exist, Please try again ."));
 
-            Optional<Access> access = this.access.findByLoginAndCountry(command.getGenerated_by() , country);
+            Optional<Access> access = this.access.findByLoginAndCountry(command.getGeneratedBy() , country);
 
             if(access.isEmpty())
             {
                 String code = "12345"; //  GlobalFunction.generatedOtpCode(5);
 
-                Optional<Otp> otp = this.otp.findByGeneratedBy(command.getGenerated_by());
+                Optional<Otp> otp = this.otp.findByGeneratedBy(command.getGeneratedBy());
 
                 if(otp.isPresent())
                 {
                     Otp otp_value = otp.get();
 
-                    if(otp_value.getCounter() == 3 && GlobalFunction.compareDate(otp_value.getUpdated_at()))
+                    if(otp_value.getCounter() == 3 && GlobalFunction.compareDate(otp_value.getUpdatedAt()))
                     {
-                        throw new RuntimeException("Sorry! Too many attempts for today, please try again later");
+                        throw new RuntimeException("Sorry! Too many attempts for today, please try again later .");
                     }
 
                     otp_value.setCode(code);
@@ -68,7 +68,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
                 else
                 {
-                    Otp otp_saved = new Otp(code, command.getGenerated_by());
+                    Otp otp_saved = new Otp(code, command.getGeneratedBy());
                     otp_saved = this.otp.save(otp_saved);
 
                     return CommandResponse.success(UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_saved)));
@@ -81,7 +81,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
                 if(access_value.isLocked_account())
                 {
-                    throw new IllegalStateException("Your account is locked, Please contact technical support for assistance");
+                    throw new IllegalStateException("Your account is locked, Please contact technical support for assistance .");
                 }
 
                 access_value.setConnected("pending");

@@ -19,9 +19,9 @@ public class AbstractDateTime {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = true)
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 }

@@ -62,6 +62,9 @@ public class Security {
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/api/auth/sign-out")
+                        .logoutRequestMatcher(request ->
+                                "DELETE".equals(request.getMethod()) && "/api/auth/sign-out".equals(request.getRequestURI())
+                        )
                         .addLogoutHandler(service)
                         .logoutSuccessHandler((request, response, authentication) ->
                                 {

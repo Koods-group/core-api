@@ -11,8 +11,8 @@ public class Swagger {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("List of endpoints related to the Cinedrone project")
+                        .title("List of endpoints related to the Cinedrome project")
                         .version("1.0")
-                        .description("Here you will find all the APIs that need to be implemented as part of the Cinedrone project. If you have any further questions, please contact the backend developer."));
+                        .description("Here you will find all the APIs that need to be implemented as part of the Cimedrone project. If you have any further questions, please contact the backend developer."));
     }
 }

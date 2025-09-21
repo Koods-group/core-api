@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
         <groupId>ci.koodysgroup</groupId>
-        <artifactId>cinedrone</artifactId>
+        <artifactId>cinedrome</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>core</name>
-	<description>Backend of cinedrone project</description>
+	<description>Backend of cinedrome project</description>
     <packaging>jar</packaging>
 
 

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 @Component
@@ -48,15 +49,15 @@ public class JwtAuthentificationFilter extends OncePerRequestFilter {
         UserDetails userDetails = userDetailsService
                 .loadUserByUsername(jwtService.extractUserLogin(token));
 
-        //var checkTokenInDb = tokenRepository.findByToken(token)
-           //     .map(Token::getExpired)
-             //   .orElse(false);
+        var checkTokenInDb = tokenRepository.findByToken(token)
+                .map(tokenObj -> tokenObj.getExpiredAt().isAfter(LocalDateTime.now()))
+                .orElse(false);
 
         // Get jwt token and validate
-        // if (!jwtService.isTokenValid(token,userDetails) || checkTokenInDb) {
-           // filterChain.doFilter(request, response);
-            // return;
-        //}
+        if (!jwtService.isTokenValid(token,userDetails) || checkTokenInDb) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         UsernamePasswordAuthenticationToken
                 authentication = new UsernamePasswordAuthenticationToken(

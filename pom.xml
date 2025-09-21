@@ -7,7 +7,7 @@
     <relativePath/>
   </parent>
   <groupId>ci.koodysgroup</groupId>
-  <artifactId>cinedrone</artifactId>
+  <artifactId>cinedrome</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>

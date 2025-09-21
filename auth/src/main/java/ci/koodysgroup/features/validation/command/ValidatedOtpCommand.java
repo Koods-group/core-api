@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ValidatedOtpCommand implements Command<String> {
 
-    private UUID otp_id;
+    private UUID otpId;
     private String code;
-    private String generated_by;
+    private String generatedBy;
 }

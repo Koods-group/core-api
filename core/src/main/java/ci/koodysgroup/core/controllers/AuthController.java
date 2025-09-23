@@ -130,7 +130,7 @@ public class AuthController {
             };
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),"A validation code has been sent to you by text message to continue the process","success"));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getContent(),response.getMessage(),"success"));
     }
 
 

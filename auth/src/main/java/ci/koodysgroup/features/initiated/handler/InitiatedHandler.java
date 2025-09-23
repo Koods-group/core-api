@@ -71,7 +71,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
                     Otp otp_saved = new Otp(code, command.getGeneratedBy());
                     otp_saved = this.otp.save(otp_saved);
 
-                    return CommandResponse.success(UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_saved)));
+                    return CommandResponse.success("A validation code has been sent to you by text message to continue the process .", UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_saved)) , "created");
                 }
             }
 
@@ -89,7 +89,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
                 User user = access_value.getUser();
 
-                return CommandResponse.success(UserOrOtpDtm.ofUser(UserDtm.fromUserDtm(user)));
+                return CommandResponse.success("Welcome! Please enter your password to access your account .", UserOrOtpDtm.ofUser(UserDtm.fromUserDtm(user)), "success");
             }
         } catch (RuntimeException e) {
             return CommandResponse.error(e.getMessage() ,  e.getMessage().contains("not exist") ? "not_found" : "conflict");

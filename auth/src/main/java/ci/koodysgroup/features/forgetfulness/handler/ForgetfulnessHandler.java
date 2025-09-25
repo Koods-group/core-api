@@ -37,7 +37,7 @@ public class ForgetfulnessHandler implements CommandHandler<ForgetfulnessCommand
 
             if(access.isPresent())
             {
-                String code = "12345"; //  GlobalFunction.generatedOtpCode(5);
+                String code = "1234"; //  GlobalFunction.generatedOtpCode(4);
 
                 Otp otp = this.otpRepository.findByGeneratedBy(command.getLogin())
                         .map(dbOtp -> {
@@ -56,15 +56,15 @@ public class ForgetfulnessHandler implements CommandHandler<ForgetfulnessCommand
                                     return this.otpRepository.save(newOtp);
                                 });
 
-                return CommandResponse.success(OtpDtm.fromCodeDtm(otp));
+                return CommandResponse.success("Code sent",OtpDtm.fromCodeDtm(otp));
 
             }
             else {
-                return CommandResponse.error("Sorry, but your username does not appear to have an associated account . Please check it .","not_found");
+                return CommandResponse.error("Invalid username", "Sorry, but your username does not appear to have an associated account . Please check it .","not_found");
             }
 
         }catch (Exception ex){
-            return CommandResponse.error(ex.getMessage(),  ex.getMessage().contains("many attempts") ? "conflict" : "not_found");
+            return CommandResponse.error("Error", ex.getMessage(),  ex.getMessage().contains("many attempts") ? "conflict" : "not_found");
         }
     }
 }

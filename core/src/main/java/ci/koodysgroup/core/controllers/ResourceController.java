@@ -32,6 +32,6 @@ public class ResourceController {
         ListCountryQuery query = new ListCountryQuery();
         List<CountryDtm> countries = this.bus.send(query);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponseUtil.success(countries));
+                .body(ApiResponseUtil.success("Available cities",countries));
     }
 }

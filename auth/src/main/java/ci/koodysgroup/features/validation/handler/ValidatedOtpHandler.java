@@ -42,23 +42,23 @@ public class ValidatedOtpHandler implements CommandHandler<ValidatedOtpCommand ,
                     otp.setConsumed(true);
                     this.repository.save(otp);
 
-                    return CommandResponse.success(OtpDtm.fromCodeDtm(otp));
+                    return CommandResponse.success("Validated Code", OtpDtm.fromCodeDtm(otp));
                 }
 
                 else
                 {
-                    return CommandResponse.error("Sorry! The code you entered has already been used. Please try again .","bad_request");
+                    return CommandResponse.error("Code already used", "Sorry! The code you entered has already been used. Please try again .","bad_request");
                 }
             }
 
             else
             {
-                return CommandResponse.error("The code entered is invalid, please try again .","bad_request");
+                return CommandResponse.error("Invalid code", "The code entered is invalid, please try again .","bad_request");
             }
 
 
         }catch (Exception e){
-            return CommandResponse.error(e.getMessage() ,  e.getMessage().contains("expired") ? "conflict" : "not_found");
+            return CommandResponse.error("Error", e.getMessage() ,  e.getMessage().contains("expired") ? "conflict" : "not_found");
         }
     }
 }

@@ -48,7 +48,7 @@ public class ResetPasswordHanlder implements CommandHandler<ResetPasswordCommand
 
             if(!otp.isConsumed())
             {
-                return CommandResponse.error("Sorry, you must enter the verification code for validation, then return here ." , "conflict");
+                return CommandResponse.error("Identity not confirmed", "Sorry, you must enter the verification code for validation, then return here ." , "conflict");
             }
 
             Country country = this.countryRepository.findById(command.getCountryId())
@@ -60,15 +60,15 @@ public class ResetPasswordHanlder implements CommandHandler<ResetPasswordCommand
                 value.setPassword(this.passwordEncoder.encode(command.getPassorwd()));
                 repository.save(value);
             } , ()  -> {
-                throw new NoSuchElementException("Sorry ! You are not authorised to perform this action .");
+                throw new NoSuchElementException(" Sorry ! You are not authorised to perform this action .");
             } ) ;
 
             otpRepository.delete(otp);
 
-            return CommandResponse.success("Great, your password has been successfully reset ." , UserDtm.fromUserDtm(access.get().getUser()),"success");
+            return CommandResponse.success("Action completed", "Great, your password has been successfully reset ." , UserDtm.fromUserDtm(access.get().getUser()),"success");
 
         }catch (Exception ex){
-            return CommandResponse.error(ex.getMessage(), ex.getMessage().contains("expired") ? "conflict" : "not_found");
+            return CommandResponse.error("Error", ex.getMessage(), ex.getMessage().contains("expired") ? "conflict" : "not_found");
         }
 
     }

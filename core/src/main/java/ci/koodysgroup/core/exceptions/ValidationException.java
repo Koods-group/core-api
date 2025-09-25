@@ -25,7 +25,7 @@ public class ValidationException {
                         (msg1, msg2) -> msg1
                 ));
 
-        ApiResponse<Map<String, Object>> response = ApiResponseUtil.badRequest("" , errors);
+        ApiResponse<Map<String, Object>> response = ApiResponseUtil.badRequest("Invalid data", "The data in the request is invalid, Please try again ." , errors);
 
         return new ResponseEntity<>(response ,HttpStatus.BAD_REQUEST);
     }

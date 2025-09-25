@@ -44,7 +44,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
             if(access.isEmpty())
             {
-                String code = "12345"; //  GlobalFunction.generatedOtpCode(5);
+                String code = "1234"; //  GlobalFunction.generatedOtpCode(4);
 
                 Optional<Otp> otp = this.otp.findByGeneratedBy(command.getGeneratedBy());
 
@@ -62,7 +62,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
                     this.otp.save(otp_value);
 
-                    return CommandResponse.success(UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_value)));
+                    return CommandResponse.success("Code sent", UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_value)));
 
                 }
 
@@ -71,7 +71,7 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
                     Otp otp_saved = new Otp(code, command.getGeneratedBy());
                     otp_saved = this.otp.save(otp_saved);
 
-                    return CommandResponse.success("A validation code has been sent to you by text message to continue the process .", UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_saved)) , "created");
+                    return CommandResponse.success("Code sent", "A validation code has been sent to you by text message to continue the process .", UserOrOtpDtm.ofCode(OtpDtm.fromCodeDtm(otp_saved)) , "created");
                 }
             }
 
@@ -89,10 +89,10 @@ public class InitiatedHandler implements CommandHandler<InitiatedCommand , Comma
 
                 User user = access_value.getUser();
 
-                return CommandResponse.success("Welcome! Please enter your password to access your account .", UserOrOtpDtm.ofUser(UserDtm.fromUserDtm(user)), "success");
+                return CommandResponse.success("Existing user", "Welcome! Please enter your password to access your account .", UserOrOtpDtm.ofUser(UserDtm.fromUserDtm(user)), "success");
             }
         } catch (RuntimeException e) {
-            return CommandResponse.error(e.getMessage() ,  e.getMessage().contains("not exist") ? "not_found" : "conflict");
+            return CommandResponse.error("Error", e.getMessage() ,  e.getMessage().contains("not exist") ? "not_found" : "conflict");
         }
 
     }

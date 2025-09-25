@@ -14,21 +14,22 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CommandResponse<T> implements ICommandResponse {
     private boolean success;
+    private String title;
     private String message;
     private T content;
     private String code;
 
 
-    public static <T> CommandResponse<T> success(T content) {
-        return new CommandResponse<>(true, "Operation successful", content, "success");
+    public static <T> CommandResponse<T> success(String title, T content) {
+        return new CommandResponse<>(true,title, "Operation successful", content, "success");
     }
 
-    public static <T> CommandResponse<T> success(String message, T content, String code) {
-        return new CommandResponse<>(true, message, content, code);
+    public static <T> CommandResponse<T> success(String title, String message, T content, String code) {
+        return new CommandResponse<>(true,title, message, content, code);
     }
 
-    public static <T> CommandResponse<T> error(String message , String code) {
-        return new CommandResponse<>(false, message, null, code);
+    public static <T> CommandResponse<T> error(String title, String message , String code) {
+        return new CommandResponse<>(false, title, message, null, code);
     }
 
 }

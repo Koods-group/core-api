@@ -40,14 +40,14 @@ public class SignInHandler implements CommandHandler<SignInCommand , CommandResp
         try{
 
             Access access = repository.findByLogin(command.getLogin())
-                    .orElseThrow(() -> new NoSuchElementException("Sorry ! You are not authorised to perform this action ."));
+                    .orElseThrow(() -> new NoSuchElementException(" Sorry ! You are not authorised to perform this action ."));
 
             if(Objects.equals(access.getConnected(), "connected")){
-                return CommandResponse.error("Sorry! you appear to be logged in on another device, Please log out of that device ." , "conflict");
+                return CommandResponse.error("Existing connection", "Sorry! you appear to be logged in on another device, Please log out of that device ." , "conflict");
             }
 
             if(!Objects.equals(access.getConnected() , "pending")){
-                return CommandResponse.error("You do not have a pending connection, we cannot proceed with your request ." , "conflict");
+                return CommandResponse.error("Connection not initiated", "You do not have a pending connection, we cannot proceed with your request ." , "conflict");
             }
 
             try{
@@ -64,15 +64,15 @@ public class SignInHandler implements CommandHandler<SignInCommand , CommandResp
                 Token token = new Token(LocalDateTime.now().plusHours(24),access,bearer);
                 tokenRepository.save(token);
 
-                return CommandResponse.success(AccessDtm.fromAccessDtm(access , token.getToken()));
+                return CommandResponse.success("Logged-in user",AccessDtm.fromAccessDtm(access , token.getToken()));
 
             }catch(BadCredentialsException ex){
-                return CommandResponse.error("Sorry! your credentials do not match, Please try again with valid credentials ." , "not_found");
+                return CommandResponse.error("Invalid access", "Sorry! your credentials do not match, Please try again with valid credentials ." , "not_found");
             }
 
 
         }catch (Exception e){
-            return CommandResponse.error(e.getMessage() , "not_found");
+            return CommandResponse.error("Error", e.getMessage() , "not_found");
         }
     }
 }

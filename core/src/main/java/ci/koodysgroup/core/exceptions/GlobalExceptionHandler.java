@@ -14,6 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Object>> handleGlobalException(Exception ex) {
         ApiResponse<Object> response = ApiResponseUtil.error(
+                "Internal Error",
                 "An unexpected error occurred"+ex.getMessage(),
                 "internal_error"
         );

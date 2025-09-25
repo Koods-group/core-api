@@ -46,7 +46,7 @@ public class SignUpHandler implements CommandHandler<SignUpCommand, CommandRespo
     public CommandResponse<AccessDtm> handler(SignUpCommand command) {
 
             Otp otp = this.otpRepository.findById(command.getOtpId())
-                    .orElseThrow(() -> new NoSuchElementException("Sorry ! You are not authorised to perform this action ."));
+                    .orElseThrow(() -> new NoSuchElementException(" Sorry ! You are not authorised to perform this action ."));
 
             if(otp.isConsumed())
             {
@@ -59,7 +59,7 @@ public class SignUpHandler implements CommandHandler<SignUpCommand, CommandRespo
 
                 if(role.isEmpty() || country.isEmpty())
                 {
-                    return CommandResponse.error("An error occurred during your registration. Please contact technical support ." , "error");
+                    return CommandResponse.error("Internal Error", "An error occurred during your registration. Please contact technical support ." , "error");
                 }
 
                 Access access = new Access(command.getLogin(),user,passwordEncoder.encode(command.getPassword()),role.get(),country.get());
@@ -80,12 +80,12 @@ public class SignUpHandler implements CommandHandler<SignUpCommand, CommandRespo
 
                 this.otpRepository.delete(otp);
 
-                return CommandResponse.success(AccessDtm.fromAccessDtm(access , token.getToken()));
+                return CommandResponse.success("Logged-in user", AccessDtm.fromAccessDtm(access , token.getToken()));
             }
 
             else
             {
-                return CommandResponse.error("Please validate your telephone number before registering ." , "conflict");
+                return CommandResponse.error("Error", "Please validate your telephone number before registering ." , "conflict");
             }
 
     }

@@ -44,12 +44,12 @@ public class AuthController {
         {
             return switch (response.getCode()) {
                 case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
-                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getTitle(), response.getMessage()));
                 default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
             };
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),response.getMessage(),"success"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),response.getMessage(),"success"));
 
     }
 
@@ -65,12 +65,12 @@ public class AuthController {
         {
             return switch (response.getCode()) {
                 case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
-                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getTitle(), response.getMessage()));
                 default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
             };
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),"A validation code has been sent to you by text message to continue the process","success"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),"A validation code has been sent to you by text message to continue the process","success"));
     }
 
 
@@ -84,13 +84,13 @@ public class AuthController {
         {
             return switch (response.getCode()) {
                 case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
-                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
-                default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getTitle(), response.getMessage()));
+                default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError(response.getMessage()));
             };
         }
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),"Thank you for registering, Enjoy all your benefits .","success"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),"Thank you for registering, Enjoy all your benefits .","success"));
     }
 
 
@@ -104,13 +104,13 @@ public class AuthController {
         {
             return switch (response.getCode()) {
                 case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
-                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getTitle(), response.getMessage()));
                 default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
             };
         }
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getContent(),"Welcome back, we're delighted to see you again .","success"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),"Welcome back, we're delighted to see you again .","success"));
     }
 
 
@@ -124,13 +124,13 @@ public class AuthController {
         {
             return switch (response.getCode()) {
                 case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
-                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
-                case "unauthorized" -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponseUtil.unauthorized(response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getTitle(), response.getMessage()));
+                case "unauthorized" -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ApiResponseUtil.unauthorized(response.getTitle(), response.getMessage()));
                 default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
             };
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getContent(),response.getMessage(),"success"));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),response.getMessage(),"success"));
     }
 
 
@@ -144,13 +144,13 @@ public class AuthController {
         {
             return switch (response.getCode()) {
                 case "not_found" -> ResponseEntity.status(HttpStatus.NOT_FOUND).body(ApiResponseUtil.notFound(response.getMessage()));
-                case "bad_request" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.badRequest(response.getMessage()));
-                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getMessage()));
+                case "bad_request" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.badRequest(response.getTitle(), response.getMessage()));
+                case "conflict" -> ResponseEntity.status(HttpStatus.CONFLICT).body(ApiResponseUtil.conflict(response.getTitle(), response.getMessage()));
                 default -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ApiResponseUtil.internalError());
             };
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getContent() , "Code validated, you may continue the process .", "success"));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getTitle(), response.getContent() , "Code validated, you may continue the process .", "success"));
     }
 
 }

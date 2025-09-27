@@ -110,7 +110,7 @@ public class AuthController {
         }
 
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),"Welcome back, we're delighted to see you again .","success"));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),"Welcome back, we're delighted to see you again .","success"));
     }
 
 

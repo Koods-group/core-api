@@ -32,6 +32,12 @@ public class AccessDtm {
     @JsonProperty("token")
     private String token;
 
+    @JsonProperty("login")
+    private String login;
+
+    @JsonProperty("country_id")
+    private UUID countryId;
+
     @JsonProperty("authorities")
     private Collection<String> authorities;
 
@@ -42,6 +48,8 @@ public class AccessDtm {
                 access.getUser().getName(),
                 access.getUser().getSurname(),
                 token,
+                access.getLogin(),
+                access.getCountry().getId(),
                 access.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority)
                         .collect(Collectors.toList())

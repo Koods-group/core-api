@@ -49,7 +49,7 @@ public class AuthController {
             };
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),response.getMessage(),"success"));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponseUtil.ok(response.getTitle(), response.getContent(),response.getMessage(),"success"));
 
     }
 

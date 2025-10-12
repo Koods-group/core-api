@@ -1,7 +1,9 @@
 package ci.koodysgroup.core.controllers;
 
 import ci.koodysgroup.domains.dtms.CountryDtm;
+import ci.koodysgroup.domains.dtms.FilterOptionDtm;
 import ci.koodysgroup.features.country.queries.ListCountryQuery;
+import ci.koodysgroup.features.filteroption.queries.FilterOptionQuery;
 import ci.koodysgroup.interfaces.bus.QueryBus;
 import ci.koodysgroup.utils.response.ApiResponse;
 import ci.koodysgroup.utils.response.ApiResponseUtil;
@@ -33,5 +35,14 @@ public class ResourceController {
         List<CountryDtm> countries = this.bus.send(query);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ApiResponseUtil.success("Available cities",countries));
+    }
+
+    @GetMapping("filer-options")
+    public ResponseEntity<ApiResponse<FilterOptionDtm>> filterOptions()
+    {
+        FilterOptionQuery query = new FilterOptionQuery();
+        FilterOptionDtm filterOptions = this.bus.send(query);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ApiResponseUtil.success("Available filter options",filterOptions));
     }
 }

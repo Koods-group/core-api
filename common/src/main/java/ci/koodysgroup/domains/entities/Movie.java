@@ -30,4 +30,11 @@ public class Movie extends AbstractDateTime {
 
     @Column(name = "director")
     private String director;
+
+    @Column(name = "video_link" , nullable = false)
+    private String videoLink;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

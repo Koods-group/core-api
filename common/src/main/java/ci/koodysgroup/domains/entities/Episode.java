@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -16,41 +17,42 @@ import org.hibernate.annotations.Type;
 import org.hibernate.type.SqlTypes;
 
 @Entity
-@Table(name = "contents")
+@Table(name = "Episodes")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Content extends AbstractDateTime {
+public class Episode extends AbstractDateTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "title" , columnDefinition = "jsonb")
+    @Column(name = "title", columnDefinition = "jsonb")
     private LocalizedText title;
+
+    @ManyToOne
+    @JoinColumn(name = "season_id", nullable = false)
+    private Season season;
 
     @Column(name = "must_be_seen")
     private boolean mustBeSeen;
+
+    @Column(name = "episode_number")
+    private int episodeNumber;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "description", columnDefinition = "jsonb")
     private LocalizedText description;
 
+    @Column(name = "duration")
+    private Time duration;
+
     @Column(name = "release_date")
     private LocalDate releaseDate;
 
-    @ManyToOne
-    @JoinColumn(name = "media_type_id")
-    private MediaType mediaType;
+    @Column(name = "video_link" , nullable = false)
+    private String videoLink;
 
-    @Column(name = "poster_url")
-    private String posterUrl;
-
-    @OneToOne(mappedBy = "content" , cascade = CascadeType.ALL)
-    private Movie movie;
-
-    @OneToOne(mappedBy = "content" , cascade = CascadeType.ALL)
-    private Serie serie;
 }

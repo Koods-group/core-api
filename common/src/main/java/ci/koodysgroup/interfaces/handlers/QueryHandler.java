@@ -1,6 +1,6 @@
 package ci.koodysgroup.interfaces.handlers;
 
-import ci.koodysgroup.interfaces.Query.Query;
+import ci.koodysgroup.interfaces.query.Query;
 import org.springframework.stereotype.Component;
 
 @Component

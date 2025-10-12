@@ -25,6 +25,6 @@ public class CountrySeeder implements CommandLineRunner {
             repository.findByAlias(country.getAlias())
                     .orElseGet(() -> repository.save(country));
         }
-        System.out.println("Country successfully inserted ✅");
+        System.out.println("Countries successfully inserted ✅");
     }
 }

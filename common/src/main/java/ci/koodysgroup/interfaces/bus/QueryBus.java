@@ -1,6 +1,6 @@
 package ci.koodysgroup.interfaces.bus;
 
-import ci.koodysgroup.interfaces.Query.Query;
+import ci.koodysgroup.interfaces.query.Query;
 import ci.koodysgroup.interfaces.handlers.QueryHandler;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationContext;

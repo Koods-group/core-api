@@ -37,7 +37,7 @@ public class ResourceController {
                 .body(ApiResponseUtil.success("Available cities",countries));
     }
 
-    @GetMapping("filer-options")
+    @GetMapping("filter-options")
     public ResponseEntity<ApiResponse<FilterOptionDtm>> filterOptions()
     {
         FilterOptionQuery query = new FilterOptionQuery();

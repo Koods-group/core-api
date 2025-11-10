@@ -53,4 +53,14 @@ public class Content extends AbstractDateTime {
 
     @OneToOne(mappedBy = "content" , cascade = CascadeType.ALL)
     private Serie serie;
+
+    public Content(LocalizedText title, boolean mustBeSeen, LocalizedText description, LocalDate releaseDate, MediaType mediaType, String posterUrl)
+    {
+        this.title = title;
+        this.mustBeSeen = mustBeSeen;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.mediaType = mediaType;
+        this.posterUrl = posterUrl;
+    }
 }

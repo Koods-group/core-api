@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Object>> handleGlobalException(Exception ex) {
         ApiResponse<Object> response = ApiResponseUtil.error(
                 "Internal Error",
-                "An unexpected error occurred"+ex.getMessage(),
+                "An unexpected error occurred: " + ex.getMessage(),
                 "internal_error"
         );
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -25,5 +25,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Object>> handleResourceNotFound(NoHandlerFoundException ex) {
         ApiResponse<Object> response = ApiResponseUtil.notFound();
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    // Gestion des exceptions de traitement de fichiers/vidéos
+    @ExceptionHandler({
+        ci.koodysgroup.services.exceptions.FileProcessingException.class,
+        ci.koodysgroup.services.exceptions.FileValidationException.class,
+        ci.koodysgroup.services.exceptions.VideoProcessingException.class
+    })
+    public ResponseEntity<ApiResponse<Object>> handleFileProcessingException(RuntimeException ex) {
+        ApiResponse<Object> response = ApiResponseUtil.badRequest(
+                "File Processing Error",
+                ex.getMessage(),
+                "file_processing_error"
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

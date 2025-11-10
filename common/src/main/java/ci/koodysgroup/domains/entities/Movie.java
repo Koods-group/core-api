@@ -37,4 +37,13 @@ public class Movie extends AbstractDateTime {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public Movie(Category category, Content content, Time duration, String director , String videoLink)
+    {
+        this.category = category;
+        this.content = content;
+        this.duration = duration;
+        this.director = director;
+        this.videoLink = videoLink;
+    }
 }
